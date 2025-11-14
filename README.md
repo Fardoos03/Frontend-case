@@ -192,3 +192,13 @@ and the 10 most recent sales should look as follows
 1. Type in `npx vite` in `_frontend` directory and access the project at [http://localhost:8080](http://localhost:8080)
 
 Happy coding!
+
+## Addon task (if you're bored, or applying for senior dev)
+To give the leaderboard a more modern playful touch, we have an additional requirement for adding some 'over-the-top' style animations for when agents are moving up and down on the leaderboard ranking.
+
+- When a user is moving up or down on the 'ladder', they should only move 1 position at a time, at an interval of 850ms.
+- Rows moving up or down on the leaderboard should have a spring style animation (i.e. the classic style of moving a little to far and then back and forth, before settling into position), and that animation should be stretched over 1.2sek - if it needs to continue moving up or down another step, this must be accounted for.
+- If a user is added to the leaderboard, that was not previously shown, the user should first enter the screen from the bottom of the viewport, and then move to the n'th + 1 position on the leaderboard, where n is the current number of users shown on the leaderboard - if the leaderboard is full, they should appear as a temporary extra row.
+- If a user is dropped out from the top 10 rankings, and therefore disappear from the leaderboard, they should first move to the 11'th position, and then slide all the down to the bottom of the view until they disappear from view.
+- Animations must be smooth (also when run on a potato powered pc).
+
