@@ -73,3 +73,6 @@ function gaussianRand() {
 
 	return rand / resolution;
 }
+
+
+// dette er en test
