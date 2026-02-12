@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState, useCallback, useRef } from 'react';
 import { RecentSalesView } from './views/recent-sales';
 import { TopSalesView } from './views/top-sales';
 import { SplashModal } from './widgets/splash-modal';
@@ -8,45 +8,46 @@ import { SaleRecord, TopSeller } from './types';
 import type { SalesEvent } from '../services/messages';
 
 export const DashBoardView = () => {
-	const { hub, store } = React.useContext(SalesConnnectorContext);
+	
+	const { hub, store } = useContext(SalesConnnectorContext);
   
 	// Controls which view is shown: 'top' sellers or 'recent' sales.
     // The UI switches automatically between these two.
-  	const [mode, setMode] = React.useState<"top" | "recent">("top");
+  	const [mode, setMode] = useState<"top" | "recent">("top");
 
   	// Stores the 10 most recent sales (newest first).
-  	const [recentSales, setRecentSales] = React.useState<SaleRecord[]>([]);
+  	const [recentSales, setRecentSales] = useState<SaleRecord[]>([]);
 
   	// Keeps track of how much each user has sold in total.
   	// Used to calculate the top 10 sellers.
-  	const [totalsByUser, setTotalsByUser] = React.useState<Record<number, TopSeller>>({});
+  	const [totalsByUser, setTotalsByUser] = useState<Record<number, TopSeller>>({});
 
   	// The sale currently shown in the splash/toast notification.
   	// If null, no splash is visible.
-  	const [activeSplash, setActiveSplash] = React.useState<SaleRecord | null>(null,);
+  	const [activeSplash, setActiveSplash] = useState<SaleRecord | null>(null,);
 
   	// Simple counter used to generate unique IDs for table rows.
-  	const saleIdRef = React.useRef(1);
+  	const saleIdRef = useRef(1);
 
   	// Queue of incoming sale events.
   	// Ensures events are processed in the order they arrive.
-  	const eventQueueRef = React.useRef<SalesEvent[]>([]);
+  	const eventQueueRef = useRef<SalesEvent[]>([]);
 
   	// Prevents multiple queue processors from running at the same time.
-  	const processingRef = React.useRef(false);
+  	const processingRef = useRef(false);
 
   	// Queue for splash notifications.
   	// Ensures each splash is shown one at a time for 5 seconds.
-  	const splashQueueRef = React.useRef<SaleRecord[]>([]);
+  	const splashQueueRef = useRef<SaleRecord[]>([]);
 
   	// Stores the current splash timer ID.
   	// Used to know if a splash is active and to clean up properly.
-  	const splashTimerRef = React.useRef<number | null>(null);
+  	const splashTimerRef = useRef<number | null>(null);
 
 	
 	// Starts processing the splash queue.
 	// Ensures only one splash is shown at a time.
-	const startSplashQueue = React.useCallback(() => {
+	const startSplashQueue = useCallback(() => {
 
 		 // If a splash timer is already running, do nothing.
          // This prevents multiple splashes from overlapping.
