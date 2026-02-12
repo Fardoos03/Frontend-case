@@ -1,6 +1,6 @@
 import { Users, Products } from './_private/db'
 
-interface SalesEvent {
+export interface SalesEvent {
 	type: 'sale';
 	userId: number;
 	productId: number;

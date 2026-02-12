@@ -5,13 +5,7 @@ import { SplashModal } from './widgets/splash-modal';
 import { Header } from './views/header';
 import { SalesConnnectorContext } from '../context/sales-connector';
 import { SaleRecord, TopSeller } from './types';
-
-interface SalesEvent {
-	type: 'sale';
-	userId: number;
-	productId: number;
-	duration: number;
-}
+import type { SalesEvent } from '../services/messages';
 
 export const DashBoardView = () => {
 	const { hub, store } = React.useContext(SalesConnnectorContext);
