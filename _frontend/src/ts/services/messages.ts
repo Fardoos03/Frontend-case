@@ -1,4 +1,3 @@
-
 import { Users, Products } from './_private/db'
 
 interface SalesEvent {
@@ -73,6 +72,3 @@ function gaussianRand() {
 
 	return rand / resolution;
 }
-
-
-// dette er en test
